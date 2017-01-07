@@ -11,4 +11,8 @@ public class GsonManager {
 	public static <T> T parse(JsonElement json, Class<T> clazz) {
 		return gson.fromJson(json, clazz);
 	}
+	
+	public static void print(JsonElement e){
+		System.out.println(gson.toJson(e));
+	}
 }

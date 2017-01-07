@@ -1,7 +1,7 @@
 package me.ranol.telegramapi.api.telegramobject.chat;
 
 import me.ranol.telegramapi.api.telegramobject.Optional;
-import me.ranol.telegramapi.api.telegramobject.User;
+import me.ranol.telegramapi.api.telegramobject.user.User;
 
 public class Chat extends User {
 	private String type;

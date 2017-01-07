@@ -1,9 +1,9 @@
 package me.ranol.telegramapi.api.event;
 
-import me.ranol.telegramapi.api.telegramobject.User;
 import me.ranol.telegramapi.api.telegramobject.message.Message;
+import me.ranol.telegramapi.api.telegramobject.user.User;
 
-public class MessageEvent implements Event {
+public class MessageEvent extends Event {
 	Message message;
 
 	public MessageEvent(Message message) {
@@ -14,7 +14,7 @@ public class MessageEvent implements Event {
 		return message;
 	}
 
-	public User getSender() {
-		return message.getSender();
+	public User getUser() {
+		return message.getUser();
 	}
 }

@@ -11,12 +11,12 @@ public class TelegramAPI {
 		}
 		try {
 			T bot = clazz.newInstance();
-			bot.registerThings();
-			bot.onStart();
 			TelegramAPI.bot = bot;
+			bot.register();
+			bot.onStart();
 			return bot;
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 		return null;
 	}

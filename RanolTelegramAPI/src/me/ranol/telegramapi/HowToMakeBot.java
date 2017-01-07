@@ -21,11 +21,11 @@ public class HowToMakeBot extends TelegramBot {
 		setLogging(true);
 		// you can add listener, and can use lambda!
 		addMessageListener(e -> {
-			if (e.getSender() != null) {
+			if (e.getUser() != null) {
 				// TextMessage can send message!
 				TextMessage msg = new TextMessage("Simply Response bot.");
 				// give String or Integer id
-				msg.send(e.getSender()
+				msg.send(e.getUser()
 					.getId());
 			}
 		});

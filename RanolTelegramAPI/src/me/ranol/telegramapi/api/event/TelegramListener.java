@@ -15,4 +15,8 @@ public interface TelegramListener<T extends Event> {
 		}
 		return false;
 	}
+
+	public default boolean valid(T e) {
+		return true;
+	}
 }

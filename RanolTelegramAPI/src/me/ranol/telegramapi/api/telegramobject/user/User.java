@@ -1,5 +1,6 @@
-package me.ranol.telegramapi.api.telegramobject;
+package me.ranol.telegramapi.api.telegramobject.user;
 
+import me.ranol.telegramapi.api.telegramobject.Optional;
 import me.ranol.telegramapi.api.telegramobject.interfaces.IntIdObject;
 
 public class User implements IntIdObject {
@@ -33,5 +34,9 @@ public class User implements IntIdObject {
 
 	public String getUsername() {
 		return username;
+	}
+
+	public String getFullName() {
+		return (getLastName() != null ? " " + getLastName() : "") + getFirstName();
 	}
 }

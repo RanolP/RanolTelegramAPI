@@ -1,7 +1,7 @@
 package me.ranol.telegramapi.api.telegramobject.message;
 
 import me.ranol.telegramapi.api.telegramobject.Optional;
-import me.ranol.telegramapi.api.telegramobject.User;
+import me.ranol.telegramapi.api.telegramobject.user.User;
 
 public class MessageEntity {
 	private String type;

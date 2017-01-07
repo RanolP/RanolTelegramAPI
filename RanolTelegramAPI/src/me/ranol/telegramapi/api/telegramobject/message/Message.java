@@ -1,17 +1,17 @@
 package me.ranol.telegramapi.api.telegramobject.message;
 
-import me.ranol.telegramapi.api.telegramobject.Contact;
 import me.ranol.telegramapi.api.telegramobject.Game;
 import me.ranol.telegramapi.api.telegramobject.Location;
 import me.ranol.telegramapi.api.telegramobject.Optional;
 import me.ranol.telegramapi.api.telegramobject.PhotoSize;
-import me.ranol.telegramapi.api.telegramobject.User;
 import me.ranol.telegramapi.api.telegramobject.Venue;
 import me.ranol.telegramapi.api.telegramobject.chat.Chat;
+import me.ranol.telegramapi.api.telegramobject.chat.ChatType;
 import me.ranol.telegramapi.api.telegramobject.interfaces.IntIdObject;
-import me.ranol.telegramapi.api.telegramobject.interfaces.SendableObject;
+import me.ranol.telegramapi.api.telegramobject.interfaces.UserObject;
+import me.ranol.telegramapi.api.telegramobject.user.User;
 
-public class Message implements IntIdObject, SendableObject {
+public class Message implements IntIdObject, UserObject {
 	private Long message_id;
 	@Optional
 	private User from;
@@ -26,7 +26,7 @@ public class Message implements IntIdObject, SendableObject {
 	@Optional
 	private Integer forward_date;
 	@Optional
-	private Integer reply_to_message;
+	private Message reply_to_message;
 	@Optional
 	private Integer edit_date;
 	@Optional
@@ -84,7 +84,7 @@ public class Message implements IntIdObject, SendableObject {
 	}
 
 	@Override
-	public User getSender() {
+	public User getUser() {
 		return from;
 	}
 
@@ -112,7 +112,7 @@ public class Message implements IntIdObject, SendableObject {
 		return forward_date;
 	}
 
-	public Integer getReplyToMessage() {
+	public Message getReplyToMessage() {
 		return reply_to_message;
 	}
 
@@ -126,5 +126,53 @@ public class Message implements IntIdObject, SendableObject {
 
 	public MessageEntity[] getEntities() {
 		return entities;
+	}
+
+	public Audio getAudio() {
+		return audio;
+	}
+
+	public Document getDocument() {
+		return document;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public PhotoSize[] getPhoto() {
+		return photo;
+	}
+
+	public Boolean isDeleteChatPhoto() {
+		return delete_chat_photo;
+	}
+
+	public Boolean isCreated(ChatType type) {
+		switch (type) {
+		case CHANNEL:
+			return channel_chat_created == true;
+		case GROUP:
+			return group_chat_created == true;
+		case SUPERGROUP:
+			return supergroup_chat_created == true;
+		case PRIVATE:
+			return chat != null && chat.getType() == ChatType.PRIVATE;
+		case UNKNOWN:
+		default:
+			return null;
+		}
+	}
+
+	public Integer getMigrateToChatId() {
+		return migrate_to_chat_id;
+	}
+
+	public Integer getMigrateFromChatId() {
+		return migrate_from_chat_id;
+	}
+
+	public Message getPinnedMessage() {
+		return pinned_message;
 	}
 }

@@ -1,10 +1,11 @@
 package me.ranol.telegramapi.api.telegramobject;
 
-import me.ranol.telegramapi.api.telegramobject.interfaces.SendableObject;
+import me.ranol.telegramapi.api.telegramobject.interfaces.UserObject;
 import me.ranol.telegramapi.api.telegramobject.interfaces.StringIdObject;
 import me.ranol.telegramapi.api.telegramobject.message.Message;
+import me.ranol.telegramapi.api.telegramobject.user.User;
 
-public class CallbackQuery implements StringIdObject, SendableObject {
+public class CallbackQuery implements StringIdObject, UserObject {
 	private String id;
 	private User from;
 	private Message message;
@@ -19,7 +20,7 @@ public class CallbackQuery implements StringIdObject, SendableObject {
 	}
 
 	@Override
-	public User getSender() {
+	public User getUser() {
 		return from;
 	}
 

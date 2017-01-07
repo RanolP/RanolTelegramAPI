@@ -50,13 +50,16 @@ public class Requester {
 		}
 	}
 
-	public static JsonObject request(String url, Map<String, String> entries) {
+	private static JsonObject request0(String url, Map<String, String> entries) {
 		try {
 			HttpPost post = new HttpPost(url);
-			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-			for (Entry<String, String> entry : entries.entrySet())
-				builder.addTextBody(entry.getKey(), entry.getValue(), ContentType.create("text/plain", Consts.UTF_8));
-			post.setEntity(builder.build());
+			if (entries != null && !entries.isEmpty()) {
+				MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+				for (Entry<String, String> entry : entries.entrySet())
+					builder
+						.addTextBody(entry.getKey(), entry.getValue(), ContentType.create("text/plain", Consts.UTF_8));
+				post.setEntity(builder.build());
+			}
 			HttpClient client = HttpClientBuilder.create()
 				.build();
 			HttpResponse res = client.execute(post);
@@ -70,12 +73,17 @@ public class Requester {
 		return null;
 	}
 
-	public static JsonObject request(TelegramBot bot, String extra, Map<String, String> entries) {
-		return request("https://api.telegram.org/bot" + bot.getToken() + "/" + extra, entries);
+	public static JsonObject request(String extra, Map<String, String> entries) {
+		return request("https://api.telegram.org/bot" + TelegramAPI.bot()
+			.getToken() + "/" + extra, entries);
 	}
 
-	public static JsonObject requestTextMessage(TelegramBot bot, long id, String text, Boolean notify, Long replyTo) {
-		return request(bot, "sendMessage", StringEntryBuilder.create()
+	public static JsonObject getMe() {
+		return request("getMe", null);
+	}
+
+	public static JsonObject sendMessage(long id, String text, Boolean notify, Long replyTo) {
+		return request("sendMessage", StringEntryBuilder.create()
 			.add("chat_id", Long.toString(id))
 			.add("text", text)
 			.addIfNonNullNot("disable_notification", notify)
@@ -83,8 +91,8 @@ public class Requester {
 			.build());
 	}
 
-	public static JsonObject requestTextMessage(TelegramBot bot, String id, String text, Boolean notify, Long replyTo) {
-		return request(bot, "sendMessage", StringEntryBuilder.create()
+	public static JsonObject sendMessage(String id, String text, Boolean notify, Long replyTo) {
+		return request("sendMessage", StringEntryBuilder.create()
 			.add("chat_id", id)
 			.add("text", text)
 			.addIfNonNullNot("disable_notification", notify)
@@ -92,8 +100,8 @@ public class Requester {
 			.build());
 	}
 
-	public static JsonObject getUpdates(TelegramBot bot, Long offset) {
-		return request(bot, "getUpdates", StringEntryBuilder.create()
+	public static JsonObject getUpdates(Long offset) {
+		return request("getUpdates", StringEntryBuilder.create()
 			.addIfNonNull("offset", offset)
 			.add("timeout", "100")
 			.build());
