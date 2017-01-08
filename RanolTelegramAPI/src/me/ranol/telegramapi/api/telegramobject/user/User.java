@@ -33,7 +33,7 @@ public class User implements IntIdObject {
 	}
 
 	public String getUsername() {
-		return username;
+		return hasUsername() ? username : "Unknown User";
 	}
 
 	public String getFullName() {

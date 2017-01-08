@@ -7,7 +7,8 @@ public class HowToMakeBot extends TelegramBot {
 	public static void main(String[] args) {
 		// Make your own main method.
 		// And bot class must extends a TelegramBot class.
-		TelegramAPI.startBot(HowToMakeBot.class);
+		// second arguments is your bot's token.
+		TelegramAPI.startBot(HowToMakeBot.class, "HERE INSERT YOUR BOT TOKEN");
 		// now call the 'startBot' method with argument.
 		// it will start your bot!
 		// onStart method calling on starting
@@ -15,8 +16,6 @@ public class HowToMakeBot extends TelegramBot {
 
 	@Override
 	public void onStart() {
-		// set your bot token,
-		setToken("HERE INSERT YOUR BOT TOKEN");
 		// you can logging chats
 		setLogging(true);
 		// you can add listener, and can use lambda!

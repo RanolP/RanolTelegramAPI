@@ -96,6 +96,10 @@ public class Message implements IntIdObject, UserObject {
 		return chat;
 	}
 
+	public Long getChatId() {
+		return chat != null ? chat.getId() : null;
+	}
+
 	public User getForwardFrom() {
 		return forward_from;
 	}
@@ -128,20 +132,100 @@ public class Message implements IntIdObject, UserObject {
 		return entities;
 	}
 
+	public boolean hasEntities() {
+		return entities != null && entities.length > 0;
+	}
+
 	public Audio getAudio() {
 		return audio;
+	}
+
+	public boolean hasAudio() {
+		return audio != null;
 	}
 
 	public Document getDocument() {
 		return document;
 	}
 
+	public boolean hasDocument() {
+		return document != null;
+	}
+
 	public Game getGame() {
 		return game;
 	}
 
+	public boolean hasGame() {
+		return document != null;
+	}
+
 	public PhotoSize[] getPhoto() {
 		return photo;
+	}
+
+	public boolean hasPhoto() {
+		return photo != null && photo.length > 0;
+	}
+
+	public Sticker getSticker() {
+		return sticker;
+	}
+
+	public boolean hasSticker() {
+		return sticker != null;
+	}
+
+	public Video getVideo() {
+		return video;
+	}
+
+	public boolean hasVideo() {
+		return video != null;
+	}
+
+	public Voice getVoice() {
+		return voice;
+	}
+
+	public boolean hasVoice() {
+		return voice != null;
+	}
+
+	public String getCaption() {
+		return caption;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public boolean hasLocation() {
+		return location != null;
+	}
+
+	public Venue getVenue() {
+		return venue;
+	}
+
+	public boolean hasVenue() {
+		return venue != null;
+	}
+
+	public User getNewChatMember() {
+		return new_chat_member;
+	}
+
+	public User getLeftChatMember() {
+		return left_chat_member;
+	}
+
+	public String getNewChatTitle() {
+		return new_chat_title;
+	}
+
+	public PhotoSize[] getNewChatPhoto() {
+		return new_chat_photo;
 	}
 
 	public Boolean isDeleteChatPhoto() {

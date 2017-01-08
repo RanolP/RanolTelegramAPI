@@ -74,7 +74,7 @@ public class Requester {
 	}
 
 	public static JsonObject request(String extra, Map<String, String> entries) {
-		return request("https://api.telegram.org/bot" + TelegramAPI.bot()
+		return request0("https://api.telegram.org/bot" + TelegramAPI.bot()
 			.getToken() + "/" + extra, entries);
 	}
 

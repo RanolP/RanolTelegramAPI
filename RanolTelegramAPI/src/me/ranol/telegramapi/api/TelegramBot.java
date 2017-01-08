@@ -2,6 +2,7 @@ package me.ranol.telegramapi.api;
 
 import static me.ranol.telegramapi.api.event.EventType.MESSAGE;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,8 +33,11 @@ public class TelegramBot {
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	private HashMap<String, CommandExecutor> executors = new HashMap<>();
 	private User me;
+	private BotProperty property;
 
 	public final void register() {
+		me = GsonManager.parse(Requester.getMe()
+			.get("result"), User.class);
 		Static.loopTask(new TimerTask() {
 			@Override
 			public void run() {
@@ -109,9 +113,36 @@ public class TelegramBot {
 							.getText());
 			}
 		});
+		property = new BotProperty(new File("BotConfig.json"));
+		System.out.println("이 봇은 RanolTelegramAPI를 사용합니다.");
+		System.out.println("https://github.com/RanolP/RanolTelegramAPI");
+		System.out.println("아무 키를 눌러서 봇을 끌 수 있습니다.");
+		new Thread(() -> {
+			try {
+				System.in.read();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			System.out.println("사용해주셔서 감사합니다.");
+			System.out.println("봇이 종료되었습니다.");
+			onEnd();
+			ending();
+			System.exit(-1);
+		}).start();
 	}
 
 	public void onStart() {
+	}
+
+	public void onEnd() {
+	}
+
+	public final void ending() {
+		property.save();
+	}
+
+	public BotProperty getProperty() {
+		return property;
 	}
 
 	public void setLogging(boolean logging) {
@@ -119,10 +150,6 @@ public class TelegramBot {
 	}
 
 	public void registerCommand(String label, CommandExecutor command) {
-		if (me == null) {
-			me = GsonManager.parse(Requester.getMe()
-				.get("result"), User.class);
-		}
 		executors.put("/" + label, command);
 		executors.put("/" + label + "@" + me.getUsername(), command);
 	}
